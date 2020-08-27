@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -30,12 +31,12 @@ public class MobileApp {
 		AndroidDriver<AndroidElement> driver = new AndroidDriver<AndroidElement>(new URL("http://0.0.0.0:4723/wd/hub"),cap);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.get("http://m.cricbuzz.com");
-		WebElement element=driver.findElement(By.xpath("//*[contains(text(),'Menu')]"));
+		WebElement element=driver.findElement(By.xpath("//span[contains(text(),'Menu')]"));
 		element.click();
 		driver.findElement(By.xpath("//a[contains(text(),'Home')]")).click();
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		driver.findElement(By.xpath("//*[contains(text(),'England clinch series 1-0')]")).click();
-				
+		JavascriptExecutor js=(JavascriptExecutor)driver;
+		WebElement element1=driver.findElement(By.xpath("//span[contains(text(),'England clinch series 1-0')]"));
+		js.executeScript("arguments[0].scrollIntoView();", element1);		
 		
 		
 	}
